@@ -15,7 +15,7 @@ import java.util.TreeMap;
 import javax.xml.bind.DatatypeConverter;
 
 public class Console {
-	private static final String filePath = "E:\\database\\users.txt";
+	private static final String filePath = "src/eDepotSystem/users.txt";
 	private static Scanner S;
 	private static Scanner s = null;
 	private static String username;
