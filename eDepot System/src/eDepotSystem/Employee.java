@@ -1,5 +1,8 @@
 package eDepotSystem;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 public class Employee {
 	
 	static void viewEmployees() {(String username) {
