@@ -2,7 +2,15 @@ package eDepotSystem;
 
 public class Employee {
 	
-	static void viewEmployees() {
+	static void viewEmployees() {(String username) {
+		BufferedReader in = new BufferedReader(new FileReader("<employee.txt>"));
+		String line;
+                 while((line = in.readLine()) != null)
+                {
+                 System.out.println(line);
+                }
+                 in.close();
+        	}
 		
 	}
 	
