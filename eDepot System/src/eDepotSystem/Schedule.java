@@ -32,7 +32,7 @@ public class Schedule {
             System.out.println(logFile.getCanonicalPath());
 
             writer = new Writer(new FileWriter(logFile));
-            writer.write("Booked Time Slot");
+            writer.write(String username("has viewed the work schedule"));
 		
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,12 +41,10 @@ public class Schedule {
                 // Close the writer regardless of what happens...
                 writer.close();
             } catch (Exception e) {
-            }
-        }
-    }
-}
+		   Throwable.getStackTrace();
+          }
+   
 	
-
 
     private static void writeToFile() {
         try {
