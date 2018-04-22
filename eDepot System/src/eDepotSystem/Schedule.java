@@ -45,10 +45,39 @@ public class Schedule {
         }
     }
 }
-		
-	}
 	
-	static void editSchedule() {
+
+
+    private static void writeToFile() {
+        try {
+            BufferedWriter bufwriter = new BufferedWriter(new FileWriter("work-schedule.txt"));
+            bufwriter.write(stringBufferOfData.toString());//writes the edited string buffer to the new file
+            bufwriter.close();//closes the file
+
+        } catch (Exception e) {//if an exception occurs
+            System.out.println("Error occured while attempting to write to file: " + e.getMessage());
+        }
+    }
+
+    private static void replacement() {
+        System.out.println("Please enter the contents of a line you would like to edit: ");//prompt for a line in file to edit
+        String lineToEdit = sc.nextLine();//read the line to edit
+
+        System.out.println("Please enter the the replacement text: ");//prompt for a line in file to replace
+        String replacementText = sc.nextLine();//read the line to replace
+
+        //System.out.println(sb);//used for debugging to check that my stringbuffer has correct contents and spacing
+
+        int startIndex = stringBufferOfData.indexOf(lineToEdit);//now we get the starting point of the text we want to edit
+        int endIndex = startIndex + lineToEdit.length();//now we add the staring index of the text with text length to get the end index
+
+        stringBufferOfData.replace(startIndex, endIndex, replacementText);//this is where the actual replacement of the text happens
+
+        System.out.println("Here is the new edited text:\n" + stringBufferOfData); //used to debug and check the string was replaced
+
+
+    }
+}
 		
 	}
 
