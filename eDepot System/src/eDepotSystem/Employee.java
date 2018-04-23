@@ -1,13 +1,8 @@
 package eDepotSystem;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.Scanner;
 
 public class Employee {
-	
-	private static final String filePath = "src/eDepotSystem/users.txt";
-	private static Scanner S;
 	private static String username;
 	private static String password;
 	private static String location;
