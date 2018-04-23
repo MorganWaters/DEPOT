@@ -1,27 +1,46 @@
 package eDepotSystem;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.util.Scanner;
 
 public class Employee {
+	private static String username;
+	private static String password;
+	private static String location;
+	private static Boolean isManager;
 	
-	static void viewEmployees() {(String username) {
-		BufferedReader in = new BufferedReader(new FileReader("<employee.txt>"));
-		String line;
-                 while((line = in.readLine()) != null)
-                {
-                 System.out.println(line);
-                }
-                 in.close();
-        	}
+	public Employee(String username, String password, String location, Boolean isManager) {
+		this.username = username;
+		this.password = password;
+		this.location = location;
+		this.isManager = isManager;
 		
 	}
 	
-	static void createEmployee() {
-		
+	public static String getUsername() {
+		return username;
 	}
-	
-	static void editEmployee() {
-		
+
+	public static void setUsername(String username) {
+		Employee.username = username;
+	}
+
+	public static void setPassword(String password) {
+		Employee.password = password;
+	}
+
+	public static String getLocation() {
+		return location;
+	}
+
+	public static void setLocation(String location) {
+		Employee.location = location;
+	}
+
+	public static Boolean getIsManager() {
+		return isManager;
+	}
+
+	public static void setIsManager(Boolean isManager) {
+		Employee.isManager = isManager;
 	}
 }
