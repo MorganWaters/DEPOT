@@ -3,17 +3,10 @@ package eDepotSystem;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
-
-import javax.xml.bind.DatatypeConverter;
 
 public class Console {
 	private static final String filePath = "src/eDepotSystem/users.txt";
@@ -118,6 +111,7 @@ public class Console {
 			System.out.println("Select Depot Location");
 			System.out.println("1 - [V]iew Schedule");
 			System.out.println("2 - [A]ccount Settings");
+			//Manager menu
 			if (Employee.getIsManager() == true) {
 				System.out.println("3 - [C]reate Schedule");
 				System.out.println("4 - [E]dit Vehicle");
@@ -159,7 +153,8 @@ public class Console {
 				
 				case "6" :
 				case "VI" : {
-					viewEmployees(Employee.getLocation());
+					System.out.print("Location for employee(s): ");
+					viewEmployees(S.next());
 					break;
 				}
 				
@@ -195,7 +190,6 @@ public class Console {
 			}
 			case "3" :
 			case "Q" : {
-				//Create Schedule
 				break;
 			}
 		}
@@ -226,25 +220,31 @@ public class Console {
 	}
 	
 	static void viewEmployees(String location) throws FileNotFoundException {
-		S = new Scanner(new FileReader(filePath));
+		Scanner sc = new Scanner(new FileReader(filePath));
 		String username;
 		String tempLocation;
 		Boolean isManager;
+		Boolean anyEmp = false;
 		
-		while(S.hasNext()) {
-			username = S.next();
-			S.next();
-			tempLocation = S.next();
-			isManager = S.nextBoolean();
+		while(sc.hasNext()) {
+			username = sc.next();
+			sc.next();
+			tempLocation = sc.next();
+			isManager = sc.nextBoolean();
 			
+			//Prints out employees in current location
 			if (tempLocation.equals(location) ) {
-				System.out.printf("\nEmployee username: %s. Employee location: %s. Manager: %b \n", username, location, isManager);
+				System.out.printf("\nEmployee username: %s. Employee location: %s. Manager: %b \n", username, tempLocation, isManager);
+				anyEmp = true;
 			}
-
-		}		
+			
+		}	
+		if (anyEmp == false) {
+			System.out.printf("Unfortunately no employees are currently in %s, sorry \n", location);
+		}
 		
-		S.close();
-		
+		sc.close();
+		return;
 	}
 	
 	private static void loadData(String curUser) throws FileNotFoundException {
