@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +13,7 @@ import java.util.Scanner;
 public class Console {
 	private static final String filePath = "src/eDepotSystem/users.txt";
 	private static final String vehicleFile = "src/eDepotSystem/vehicle.txt";
+	private static final String workFile = "src/eDepotSystem/workschedule.txt";
 	private static Scanner S;
 	private static Scanner s = null;
 	private static String username;
@@ -25,7 +28,9 @@ public class Console {
 	private static String[] arrayVehicles;
 	private static List<String> employees = new ArrayList<String>();
 	private static List<String> vehicles = new ArrayList<String>();
+	private static List<String> schedule = new ArrayList<String>();
 	private static String[] saveEmployees;
+	private static String[] saveSchedule;
 
 	public static void main(String[] args) {
 		S = new Scanner(System.in);
@@ -138,7 +143,7 @@ public class Console {
 			switch (choice) {
 				case "1" :
 				case "V" : {
-					Schedule.viewSchedule(curEmployee.getUsername());
+					viewSchedule();
 					break;
 				}
 				case "2" :
@@ -181,8 +186,32 @@ public class Console {
 
 			}
 		} while (!choice.equals("Q"));
-		//saveData();
 
+	}
+	
+	private static void viewSchedule() {
+		String tempReg;
+		String tempClient;
+		String tempLoc;
+		String tempStartD;
+		String tempStartT;
+		String tempEndD;
+		String tempEndT;
+		String tempPending;
+		int i = 0;
+		for (i = 0; i < saveSchedule.length; i++) {
+			if (curEmployee.getUsername().equals(saveSchedule[i])) {
+				tempReg = saveSchedule[i + 1];
+				tempClient = saveSchedule[i + 2];
+				tempLoc = saveSchedule[i + 3];
+				tempStartD = saveSchedule[i + 4];
+				tempStartT = saveSchedule[i + 5];
+				tempEndD = saveSchedule[i + 6];
+				tempEndT = saveSchedule[i + 7];
+				tempPending = saveSchedule[i + 8];
+				System.out.printf("\nSchedule: Reg: %s Client: %s Location: %s Start Date: %s Start Time: %s End Date: %s End Time: %s Pending: %s\n", tempReg, tempClient, tempLoc, tempStartD, tempStartT, tempEndD, tempEndT, tempPending);
+			}
+		}
 	}
 	
 	private static void accountSettings() {
@@ -224,6 +253,33 @@ public class Console {
 	}
 
 	private static void createSchedule() {
+		System.out.print("Drivers name: ");
+		WorkSchedule.setDriver(S.next());
+		System.out.print("Reg No: ");
+		WorkSchedule.setVehicleReg(S.next());
+		System.out.print("Client Name: ");
+		WorkSchedule.setClientName(S.next());
+		System.out.print("Destination: ");
+		WorkSchedule.setLocation(S.next());
+		System.out.print("Start Date(DDMMYY): ");
+		WorkSchedule.setStartDate(S.next());
+		System.out.print("Start Time(HHMM): ");
+		WorkSchedule.setStartTime(S.next());
+		System.out.print("End Date(DDMMYY): ");
+		WorkSchedule.setEndDate(S.next());
+		System.out.print("End Time(HHMM): ");
+		WorkSchedule.setEndTime(S.next());
+		int x = saveSchedule.length;
+		saveSchedule[x] = "Pending";
+		saveSchedule[x-1] = WorkSchedule.getEndTime();
+		saveSchedule[x-2] = WorkSchedule.getEndDate();
+		saveSchedule[x-3] = WorkSchedule.getStartTime();
+		saveSchedule[x-4] = WorkSchedule.getStartDate();
+		saveSchedule[x-5] = WorkSchedule.getLocation();
+		saveSchedule[x-6] = WorkSchedule.getClientName();
+		saveSchedule[x-7] = WorkSchedule.getVehicleReg();
+		saveSchedule[x-8] = WorkSchedule.getDriver();
+		
 		
 	}
 	
@@ -388,6 +444,13 @@ public class Console {
 		arrayVehicles = vehicles.toArray(new String[vehicles.size()]);
 		s.close();
 		
+		s = new Scanner(new FileReader(workFile));
+		while (s.hasNext()) {
+			schedule.add(s.next());
+		}
+		saveSchedule = schedule.toArray(new String[schedule.size() + 9]);
+		s.close();
+		
 	}
 	
 	private static void saveData() throws Exception {
@@ -408,11 +471,23 @@ public class Console {
 		x = 0;
 		pw.close();
 		//Saves Vehicles
+		
 		pw = new PrintWriter(new FileWriter(vehicleFile));
 		for (i = 0; i < arrayVehicles.length; i++) {
 			x++;
 			pw.print(arrayVehicles[i] + " ");
 			if (x == 6) {
+				pw.print("\n");
+				x = 0;
+			}
+		}
+		pw.close();
+		
+		pw = new PrintWriter(new FileWriter(workFile));
+		for (i = 0; i < saveSchedule.length; i++) {
+			x++;
+			pw.print(saveSchedule[i] + " ");
+			if (x == 9) {
 				pw.print("\n");
 				x = 0;
 			}

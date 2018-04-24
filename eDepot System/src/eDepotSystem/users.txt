@@ -2,4 +2,4 @@ admin admin Liverpool true
 james password Liverpool false 
 john 1234 Liverpool false 
 admin2 admin Manchester true 
-samantha 12345 Manchester false
+samantha 12345 Manchester false  
