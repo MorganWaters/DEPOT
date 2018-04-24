@@ -1,5 +1,9 @@
 package eDepotSystem;
 
+mport java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class WorkSchedule {
 	
 	private static String vehicleReg;
@@ -87,5 +91,34 @@ public class WorkSchedule {
 	public static void setEndTime(String endTime) {
 		WorkSchedule.endTime = endTime;
 	}
+        public static void viewSchedule(String username) {
+		
+        }
 
+        public String readFile(String filename)
+		
+        {
+        String viewSchedule = null;
+        File file = new File("vehicle.txt");  
+        FileReader reader = null;
+        try {
+            reader = new FileReader(file);
+            char[] chars = new char[(int) file.length()];
+            reader.read(chars);
+            viewSchedule = new String(chars);
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(reader != null){
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return viewSchedule;
+    }
+  }
 }
