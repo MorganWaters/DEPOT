@@ -20,29 +20,31 @@ public class Schedule {
         	}
 
         public static void main(String[checkWorkSchedule] args) {
-        Writer writer = null;
-        try {
-            //create a temporary file
-            String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-            File logFile = new File(timeLog);
-
-            // This will output the full path where the file will be written to...
-	    File file = new File ("WorkSchedule/work-schedule.txt")
-		    String path = file.getPath();
-            System.out.println(logFile.getCanonicalPath());
-
-            writer = new Writer(new FileWriter(logFile));
-            writer.write(String username("has viewed the work schedule"));
-		
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                // Close the writer regardless of what happens...
-                writer.close();
-            } catch (Exception e) {
-		   Throwable.getStackTrace();
-          }
+	        Writer writer = null;
+	        try {
+	            //create a temporary file
+	            String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+	            File logFile = new File(timeLog);
+	
+	            // This will output the full path where the file will be written to...
+		    File file = new File ("WorkSchedule/work-schedule.txt");
+			    String path = file.getPath();
+	            System.out.println(logFile.getCanonicalPath());
+	
+	            writer = new Writer(new FileWriter(logFile));
+	            writer.write(Employee.getUsername() + (" has viewed the work schedule"));
+			
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	        	try {
+	                // Close the writer regardless of what happens...
+	                writer.close();
+	            } catch (Exception e) {
+			   Throwable.getStackTrace();
+	            }
+	        }
+        }
    
 	
 

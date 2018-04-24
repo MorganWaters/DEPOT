@@ -1,0 +1,8 @@
+AB66ABC ford tanker 100 Liverpool chemical 
+BD72JKL ford truck 100 Liverpool na 
+HU43BKS ford truck 400 Liverpool na 
+AB22LPC ford tanker 500 Liverpool oil 
+KJ11PJC ford tanker 600 Manchester oil 
+JH71NHG ford tanker 100 Manchester chemical 
+KO92KIL ford truck 350 Manchester na 
+PO95KIJ ford truck 150 Manchester na 

@@ -12,35 +12,34 @@ public class Employee {
 		this.username = username;
 		this.password = password;
 		this.location = location;
-		this.isManager = isManager;
-		
+		this.isManager = isManager;		
 	}
 	
-	public static String getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
-	public static void setUsername(String username) {
+	public void setUsername(String username) {
 		Employee.username = username;
 	}
 
-	public static void setPassword(String password) {
+	public void setPassword(String password) {
 		Employee.password = password;
 	}
 
-	public static String getLocation() {
+	public String getLocation() {
 		return location;
 	}
 
-	public static void setLocation(String location) {
+	public void setLocation(String location) {
 		Employee.location = location;
 	}
 
-	public static Boolean getIsManager() {
+	public Boolean getIsManager() {
 		return isManager;
 	}
 
-	public static void setIsManager(Boolean isManager) {
+	public void setIsManager(Boolean isManager) {
 		Employee.isManager = isManager;
 	}
 }
