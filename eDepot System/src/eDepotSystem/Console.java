@@ -148,7 +148,7 @@ public class Console {
 				}
 				case "3" :
 				case "C" : {
-					//Create Schedule
+					createSchedule();
 					
 				}
 				case "4" :
