@@ -14,8 +14,12 @@ public class Console {
 	private static Scanner s = null;
 	private static String username;
 	private static String password;
+	private static Boolean isManager;
 	private static boolean verified = false;
 	private static String choice;
+	private static String editedEmp;
+	private static String newPass;
+	private static Employee curEmployee = new Employee("", "", "", false);
 	//Save employees in array to load and save data
 	private static List<String> employees = new ArrayList<String>();
 
@@ -49,6 +53,8 @@ public class Console {
 			}
 		
 		} while (!choice.equals("Q") && !verified);	
+		String addEmployee = Employee.getUsername() + " " + password + " " + Employee.getLocation() + " " + Employee.getIsManager();
+		employees.add(addEmployee);
 		loadData(username);
 		saveData();
 		
@@ -63,15 +69,13 @@ public class Console {
 		username = S.next();
 		System.out.print("Password: ");
 		password = S.next();
-		verifyLogin(username, password, location);
-				
+		verifyLogin(username, password, location);				
 	}
 	
 	private static void verifyLogin(String username, String password, String location) {
 		String tempUsername = "";
 		String tempPassword = "";
 		String tempLocation = "";
-		Boolean tempisManager = false;
 		
 		try {
 			s = new Scanner(new FileReader(filePath));
@@ -80,13 +84,16 @@ public class Console {
 				tempUsername = s.next();
 				tempPassword = s.next();
 				tempLocation = s.next();
-				tempisManager = s.nextBoolean();
+				isManager = s.nextBoolean();
 				
 				//Statement to verify if credientials given match that in the users text file.
 				if (tempUsername.equals(username) && tempPassword.equals(password) && tempLocation.equals(location) ) {
 					System.out.println("Verified");
 					verified = true;
-					Employee curEmployee = new Employee(username, password, location, tempisManager);
+					Employee.setUsername(username);
+					Employee.setIsManager(isManager);
+					Employee.setLocation(tempLocation);
+					Employee.setPassword(tempPassword);
 					mainMenu();					
 				}
 				else if (!verified && !s.hasNext()) {
@@ -107,7 +114,7 @@ public class Console {
 			choice = "";
 			
 			System.out.println("~~~ Main Menu ~~~");		
-			System.out.printf("Hello %s, welcome to %s system \n", Employee.getUsername(), Employee.getLocation());
+			System.out.printf("Hello %s, welcome to %s system \n",Employee.getUsername(), Employee.getLocation());
 			System.out.println("Select Depot Location");
 			System.out.println("1 - [V]iew Schedule");
 			System.out.println("2 - [A]ccount Settings");
@@ -126,7 +133,7 @@ public class Console {
 			switch (choice) {
 				case "1" :
 				case "V" : {
-					Schedule.viewSchedule(username);
+					Schedule.viewSchedule(Employee.getUsername());
 					break;
 				}
 				case "2" :
@@ -158,9 +165,13 @@ public class Console {
 					break;
 				}
 				
+				case "7" : {
+					editEmployee();
+				}
+				
 				case "Q" : {
-					String addEmployee = Employee.getUsername() + " " + password + " " + Employee.getLocation() + " " + Employee.getIsManager();
-					employees.add(addEmployee);
+
+					System.out.println(employees);
 					break;
 				}
 
@@ -247,25 +258,82 @@ public class Console {
 		return;
 	}
 	
+	static void editEmployee() throws FileNotFoundException {
+		System.out.println(employees);
+		String tempEmp;
+		String tempLoc;
+		Boolean tempMan;
+		Boolean done = false;
+		Scanner s;
+		s = new Scanner(new FileReader(filePath));
+		System.out.println("~~~Employee Edit~~~ \n");
+		System.out.print("Employee Username: ");
+		editedEmp = S.next();
+		
+		while (s.hasNext()) {
+			String pick;
+			tempEmp = s.next();
+			s.next();
+			tempLoc = s.next();
+			tempMan = s.nextBoolean();
+			System.out.println(employees);
+			
+			if (editedEmp.equals(tempEmp)) {
+				System.out.printf("Username: %s. Location %s. Manager? %s. \n", tempEmp, tempLoc, tempMan);
+				System.out.print("Is this correct? Y/N \n");
+				pick = S.next().toUpperCase();
+				if (pick.equals("Y")) {
+					System.out.print("New Username: ");
+					String newUse = S.next();
+					System.out.print("New Password: ");
+					newPass = S.next();
+					System.out.print("New Location: ");
+					String newLoc = S.next();
+					System.out.print("Is Manager?: ");
+					Boolean newIsMan = S.nextBoolean();
+					String addEmployee = newUse + " " + newPass + " " + newLoc + " " + newIsMan;
+					employees.add(addEmployee);
+					System.out.println(employees);
+				}
+				else if (pick.equals("N")) {
+					System.out.println(employees);
+				}
+				else {
+					System.out.println("Wrong input, returning to menu");
+					System.out.println(employees);
+				}
+				
+			}
+		}
+		if (done) {
+
+			
+		}
+		s.close();
+	}
+	
 	private static void loadData(String curUser) throws FileNotFoundException {
-		String username;
+		String usernameB;
 		String password;
 		String location;
 		Boolean isManager;
 		// setup for seats hash map
 		s = new Scanner(new FileReader(filePath));
 		while (s.hasNext()) {				
-			username = s.next();
+			usernameB = s.next();
 			password = s.next();
 			location = s.next();
 			isManager = s.nextBoolean();
-			if (username.equals(curUser)) {
+			if (usernameB.equals(username)) {
 				
 			}
+			else if(usernameB.equals(editedEmp)) {
+
+			}
 			else {
-				String addEmployee = username + " " + password + " " + location + " " + isManager;
+				String addEmployee = usernameB + " " + password + " " + location + " " + isManager;
 				employees.add(addEmployee);
-			}					
+			}
 		}
 		
 
@@ -275,14 +343,9 @@ public class Console {
 		// java's try-with-resource statement
 		PrintWriter pw = new PrintWriter(new FileWriter(filePath));
 		String[] saveEmployees = employees.toArray(new String[employees.size()]);
-		int count = 0;
 		int i = 0;
 		for (i = 0; i < saveEmployees.length; i++) {
 			pw.print(saveEmployees[i] + " ");
-			count++;
-			if (count == 4) {
-				pw.print("\n");
-			}
 		}
 		pw.close();
 	
