@@ -1,12 +1,12 @@
 package eDepotSystem;
 
 public class Vehicle {
-	String make;
-	String model;
-	String regNo;
-	String weight;
-	String location;
-	String type;
+	private static String make;
+	private static String model;
+	private static String regNo;
+	private static String weight;
+	private static String location;
+	private static String type;
 	
 	public Vehicle (String make, String model, String regNo, String weight, String location, String type) {
 		this.make = make;
