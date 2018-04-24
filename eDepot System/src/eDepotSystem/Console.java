@@ -143,7 +143,7 @@ public class Console {
 			switch (choice) {
 				case "1" :
 				case "V" : {
-					viewSchedule();
+					WorkSchedule.viewSchedule(curEmployee.getUsername());
 					break;
 				}
 				case "2" :
