@@ -124,6 +124,7 @@ public class Console {
 				System.out.println("4 - [E]dit Vehicle");
 				System.out.println("5 - [Ad]d Employee");	
 				System.out.println("6 - [Vi]ew Employee");
+				System.out.println("7 - [Ed]it Employee");
 			}			
 			System.out.println("Q - Quit");
 			System.out.print("Pick: ");
@@ -165,7 +166,8 @@ public class Console {
 					break;
 				}
 				
-				case "7" : {
+				case "7" :
+				case "ED" : {
 					editEmployee();
 				}
 				
@@ -266,7 +268,7 @@ public class Console {
 		Boolean done = false;
 		Scanner s;
 		s = new Scanner(new FileReader(filePath));
-		System.out.println("~~~Employee Edit~~~ \n");
+		System.out.println("\n~~~Employee Edit~~~ ");
 		System.out.print("Employee Username: ");
 		editedEmp = S.next();
 		
