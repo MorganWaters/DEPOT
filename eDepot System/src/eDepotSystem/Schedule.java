@@ -68,10 +68,10 @@ public class Schedule {
 
         //System.out.println(sb);//used for debugging to check that my stringbuffer has correct contents and spacing
 
-        int startIndex = stringBufferOfData.indexOf(lineToEdit);//now we get the starting point of the text we want to edit
+        int startIndex = String.indexOf(lineToEdit);//now we get the starting point of the text we want to edit
         int endIndex = startIndex + lineToEdit.length();//now we add the staring index of the text with text length to get the end index
 
-        stringBufferOfData.replace(startIndex, endIndex, replacementText);//this is where the actual replacement of the text happens
+        String.replace(startIndex, endIndex, replacementText);//this is where the actual replacement of the text happens
 
         System.out.println("Here is the new edited text:\n" + stringBufferOfData); //used to debug and check the string was replaced
 
